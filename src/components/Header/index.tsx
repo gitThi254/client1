@@ -1,14 +1,6 @@
 import { Fragment, useState } from "react";
-import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
-import {
-  ArrowPathIcon,
-  Bars3Icon,
-  ChartPieIcon,
-  CursorArrowRaysIcon,
-  FingerPrintIcon,
-  SquaresPlusIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { Popover, Transition } from "@headlessui/react";
+import { Bars3Icon } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
 import DropdownUser from "./DropdownUser";
@@ -17,14 +9,9 @@ import { useCartItems } from "../../hooks/cart.hook";
 
 const callsToAction: any = [];
 
-function classNames(...classes: any) {
-  return classes.filter(Boolean).join(" ");
-}
-
 export default function Header() {
   const { data: categories } = useCategories();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(true);
-  const { data: cart, isPending: pendingCart } = useCartItems();
+  const { data: cart } = useCartItems();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <div className="bg-white z-99999 w-full">

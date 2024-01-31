@@ -21,14 +21,14 @@ export const useLogin = () => {
 };
 export const useVerify = () => {
   const queryClient = useQueryClient();
-  const authDefault = JSON.parse(localStorage.getItem("auth")) ?? null;
+  const authDefault = JSON.parse(localStorage.getItem("auth") ?? "{}") ?? null;
   const user = useQuery({
     queryKey: ["auth"],
     queryFn: verifyReq,
     refetchIntervalInBackground: false,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
-    initialData: authDefault,
+    initialData: authDefault && null,
   });
   if (user.error && !user.isLoading) {
     queryClient.setQueryData(["auth"], null);

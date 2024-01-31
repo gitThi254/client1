@@ -11,7 +11,7 @@ export const useCreateOrder = () => {
   const navigate = useNavigate();
   return useMutation({
     mutationFn: createOrdersReq,
-    onSuccess: (data) => {
+    onSuccess: () => {
       navigate("/order/history");
       toast.success("create order successfully");
     },

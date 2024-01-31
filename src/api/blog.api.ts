@@ -1,4 +1,3 @@
-import { IdentificationIcon } from "@heroicons/react/16/solid";
 import axios from "./axios";
 export const blogsReq = async () => axios.get("/blogs").then((res) => res.data);
 export const blogReq = async (id?: string) =>
@@ -11,10 +10,7 @@ export const likesReq = async (id?: string) =>
   });
 
 export const dislikesReq = async (id?: string) =>
-  await axios
-    .put("/blogs/dislikes", { blogId: id })
-    .then((res) => {
-      console.log(res.data);
-      return res.data;
-    })
-    .catch((err) => console.log(err));
+  await axios.put("/blogs/dislikes", { blogId: id }).then((res) => {
+    console.log(res.data);
+    return res.data;
+  });

@@ -57,7 +57,7 @@ export const useUpdateCart = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: updateCartReq,
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["carts-items"] });
     },
   });

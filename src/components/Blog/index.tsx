@@ -1,4 +1,3 @@
-import React from "react";
 import CarouselHome from "../Carousel";
 
 const Blog = () => {

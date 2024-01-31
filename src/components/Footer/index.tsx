@@ -1,5 +1,3 @@
-import React from "react";
-
 const Footer = () => {
   const InformShop = [
     { id: 1, title: "Công ty TNHH Dịch vụ và Thương mại An Thành." },

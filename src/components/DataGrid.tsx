@@ -1,5 +1,4 @@
 import { useState } from "react";
-import image from "../images/iphone-1.jpg";
 import { useProducts } from "../hooks/product.hook";
 import Loader from "../common/Loader";
 import { Link, useSearchParams } from "react-router-dom";
@@ -21,7 +20,13 @@ const DataGrid = () => {
       <div className="grid grid-cols-12 gap-5 mb-5">
         <div className="col-span-12">
           <div className="flex justify-center items-center flex-wrap lg:justify-between">
-            <div className="mb-2 flex"></div>
+            <div
+              className="mb-2 flex lg:hidden cursor-pointer"
+              onClick={() => setOpen((pre: any) => !pre)}
+            >
+              {" "}
+              menu
+            </div>
             <Search url="products" />
           </div>
         </div>
@@ -187,7 +192,12 @@ const DataGrid = () => {
               </div>
             ))}
           </div>
-          <Pagination_page itemsPerPage={6} items={products.totalPage} />
+          <Pagination_page
+            itemsPerPage={6}
+            items={products.totalPage}
+            setSearch={setSearch}
+            search={search}
+          />
         </div>
       </div>
     </div>

@@ -31,8 +31,8 @@ const SelectPrice = ({ data }: { data: any }) => {
             type="radio"
             name={data[0].name}
             value=""
-            onChange={(e: any) =>
-              setSearch((pre: any) => {
+            onChange={() =>
+              setSearch(() => {
                 delete query[data[0].name];
                 return query;
               })

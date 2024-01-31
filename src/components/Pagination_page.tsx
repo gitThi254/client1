@@ -1,14 +1,16 @@
 import ReactPaginate from "react-paginate";
-import { useSearchParams } from "react-router-dom";
 
 const Pagination_page = ({
   itemsPerPage,
   items,
+  search,
+  setSearch,
 }: {
   itemsPerPage: any;
   items: any;
+  search: any;
+  setSearch: any;
 }) => {
-  const [search, setSearch] = useSearchParams();
   const status = search.get("status");
 
   const pageCount = Math.ceil(items / itemsPerPage);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useCreateOrder } from "../../hooks/order.hook";
 import Model from "../../components/Model";
@@ -12,14 +12,14 @@ const Order = ({
   user: any;
   shipping: any;
 }) => {
-  const [address, setAddress] = useState<any>(user.address.default);
+  const [address, setAddress] = useState<any>();
+  useEffect(() => {
+    if (user.address.default) {
+      setAddress(user.address.default);
+    }
+  }, [address]);
   const [error, setError] = useState<string>("");
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    formState: { errors },
-  } = useForm<Order>({
+  const { register, handleSubmit, getValues } = useForm<Order>({
     defaultValues: {
       payment_method_id: "",
       shipping_address: user?.address?.default?._id ?? "",

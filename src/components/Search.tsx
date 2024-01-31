@@ -12,12 +12,7 @@ const Search = ({ url }: { url: string }) => {
       keyword: "",
     },
   });
-  const {
-    register,
-    reset,
-    handleSubmit,
-    formState: { errors },
-  } = form;
+  const { register, reset, handleSubmit } = form;
 
   const onSubmit = (data: SearchKeyWord) => {
     if (data.keyword) {

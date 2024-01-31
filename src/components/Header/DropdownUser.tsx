@@ -5,7 +5,7 @@ import UserOne from "../../images/user/user-01.png";
 import { useLogout, useVerify } from "../../hooks/auth.hook";
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { data: user, isPending } = useVerify();
+  const { data: user } = useVerify();
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
   const { mutate: logoutMutation } = useLogout();

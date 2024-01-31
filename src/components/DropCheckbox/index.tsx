@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
 
 const DropCheckBox = ({ variation, title }: { variation: any; title: any }) => {

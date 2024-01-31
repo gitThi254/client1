@@ -1,5 +1,3 @@
-import React from "react";
-
 const DataOrder = ({ item }: { item: any }) => {
   return (
     <tr
