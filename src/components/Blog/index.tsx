@@ -1,9 +1,9 @@
-import CarouselHome from "../Carousel";
+import Carousel from "../Carousel";
 
 const Blog = () => {
   return (
     <>
-      <div className="bg-gray-100 container mx-auto">
+      <div className="container bg mx-auto pb-8 bg-meta-9">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl py-16 sm:py-6 lg:max-w-none lg:py-6">
             <div className="flex flex-col text-center w-full">
@@ -16,8 +16,8 @@ const Blog = () => {
             </div>
           </div>
         </div>
+        <Carousel />
       </div>
-      <CarouselHome />
     </>
   );
 };

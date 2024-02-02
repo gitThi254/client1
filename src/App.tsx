@@ -9,6 +9,7 @@ import routes from "./routes";
 import Home from "./pages/Home";
 import ScrollToTop from "./components/ScrollToTop";
 import BasicRoute from "./routes/BasicRoutes";
+import NotFound from "./pages/NotFound";
 const DefaultLayout = lazy(() => import("./layout/DefaultLayout"));
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
       <Toaster
         position="top-right"
         reverseOrder={false}
-        containerClassName="overflow-auto"
+        containerClassName="overflow-auto  z-9999999"
       />
       <ScrollToTop />
       <Routes>
@@ -34,13 +35,7 @@ function App() {
           <Route path="signup" element={<SignUp />} />
         </Route>
 
-        <Route
-          element={
-            <Suspense fallback={<Loader />}>
-              <DefaultLayout />
-            </Suspense>
-          }
-        >
+        <Route element={<DefaultLayout />}>
           <Route index element={<Home />} />
           {routes.map((routes, index) => {
             const { path, component: Component } = routes;
@@ -57,6 +52,7 @@ function App() {
             );
           })}
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

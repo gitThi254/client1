@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   addCartReq,
   cartsReq,
+  deleteCartReq,
   getCartItemReq,
   getShipingMethodsReq,
   getShippingMethodReq,
@@ -15,6 +16,7 @@ export const useCarts = () => {
     queryFn: cartsReq,
   });
 };
+
 export const useCartItems = () => {
   return useQuery({
     queryKey: ["carts-items"],
@@ -41,13 +43,8 @@ export const useAddCart = () => {
   return useMutation({
     mutationFn: addCartReq,
     onSuccess: (data) => {
-      queryClient.setQueryData(["carts-items"], (req: any) => {
-        const dataReq = req.map((item: any) =>
-          item._id === data._id ? { ...item, qty: data.qty } : item
-        );
+      queryClient.invalidateQueries({ queryKey: ["carts-items"] });
 
-        return dataReq;
-      });
       toast.success("Add to cart successfully");
     },
   });
@@ -57,6 +54,16 @@ export const useUpdateCart = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: updateCartReq,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["carts-items"] });
+    },
+  });
+};
+
+export const useDeleteCart = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: deleteCartReq,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["carts-items"] });
     },

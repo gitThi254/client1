@@ -13,7 +13,7 @@ const DataGrid = () => {
   const { data: products, isPending } = useProducts(search);
   const { data: categories, isPending: pending } = useCategories();
   const { data: cart, isPending: pendingCart } = useCartItems();
-
+  console.log(products);
   if (isPending || pending || pendingCart) return <Loader />;
   return (
     <div className="container mx-auto my-5">
@@ -27,6 +27,7 @@ const DataGrid = () => {
               {" "}
               menu
             </div>
+            <div></div>
             <Search url="products" />
           </div>
         </div>
@@ -123,75 +124,88 @@ const DataGrid = () => {
           </div>
         </div>
         <div className="ul-ecommerce-container">
-          <div className="grid grid-cols-12 gap-5 mb-5">
-            {products?.products?.map((item: any) => (
-              <div
-                className="col-span-12 xl:col-span-4 md:col-span-6"
-                key={item._id}
-              >
-                <div className="card overflow-hidden w-full relative">
-                  <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md lg:aspect-none group-hover:opacity-80 lg:h-80">
-                    <img
-                      src={item?.image[0]?.url}
-                      alt={item?.name}
-                      className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                    />
-                  </div>
-                  <div className="card-body">
-                    <div className="mb-1">
-                      <a
-                        className="text-graydark/95 hover:text-graydark line-clamp-2 line h-12"
-                        href="#"
-                      >
-                        {item?.name}
-                      </a>
+          {products?.products?.length !== 0 ? (
+            <div className="grid grid-cols-12 gap-5 mb-5">
+              {products?.products?.map((item: any) => (
+                <div
+                  className="col-span-12 xl:col-span-4 md:col-span-6"
+                  key={item._id}
+                >
+                  <div className="card overflow-hidden w-full relative">
+                    <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md lg:aspect-none group-hover:opacity-80 lg:h-80">
+                      <img
+                        src={item?.image[0]?.url}
+                        alt={item?.name}
+                        className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                      />
                     </div>
-                    <p className="font-semibold mb-4">
-                      {item?.category[0]?.category_name}
-                    </p>
-                    <div className="flex justify-between">
-                      <div className="flex mb-2">
-                        <span className="material-icons text-warning-500">
-                          grade
-                        </span>
-                        <span className="material-icons text-warning-500">
-                          grade
-                        </span>
-                        <span className="material-icons text-warning-500">
-                          grade
-                        </span>
-                        <span className="material-icons text-warning-500">
-                          grade
-                        </span>
-                        <span className="material-icons text-gray-300">
-                          grade
-                        </span>
+                    <div className="card-body">
+                      <div className="mb-1">
+                        <a
+                          className="text-graydark/95 hover:text-graydark line-clamp-2 line h-12"
+                          href="#"
+                        >
+                          {item?.name}
+                        </a>
                       </div>
-                      <p className="font-bold text-base mb-5">
-                        ${item?.min} - ${item?.max}
+                      <p className="font-semibold mb-4">
+                        {item?.category[0]?.category_name}
                       </p>
-                    </div>
-                    <div className="flex justify-between flex-wrap">
-                      <button
-                        className="btn ripple btn-primary mb-2"
-                        type="button"
-                      >
-                        Add Cart
-                      </button>
-                      <Link
-                        preventScrollReset={false}
-                        to={`/products/${item?.id}`}
-                        className="btn btn-primary-outline mb-2"
-                        type="button"
-                      >
-                        View Cart
-                      </Link>
+                      <div className="flex justify-between">
+                        <div className="flex mb-2">
+                          <span className="material-icons text-warning-500">
+                            grade
+                          </span>
+                          <span className="material-icons text-warning-500">
+                            grade
+                          </span>
+                          <span className="material-icons text-warning-500">
+                            grade
+                          </span>
+                          <span className="material-icons text-warning-500">
+                            grade
+                          </span>
+                          <span className="material-icons text-gray-300">
+                            grade
+                          </span>
+                        </div>
+                        <p className="font-bold text-base mb-5">
+                          ${item?.min} - ${item?.max}
+                        </p>
+                      </div>
+                      <div className="flex flex-col justify-between flex-wrap">
+                        <Link
+                          preventScrollReset={false}
+                          to={`/products/${item?.id}`}
+                          className="btn btn-primary-outline mb-2"
+                          type="button"
+                        >
+                          View Cart
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
+              ))}
+            </div>
+          ) : (
+            <>
+              <div
+                role="status"
+                className="flex flex-col items-center justify-center"
+              >
+                <img
+                  alt=""
+                  src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/search/a60759ad1dabe909c46a817ecbf71878.png"
+                  className=""
+                />
+                <div className="text-xl">Không tìm thấy kết quả nào</div>
+                <div className="text-xl">
+                  Hãy thử sử dụng các từ khóa chung chung hơn
+                </div>
               </div>
-            ))}
-          </div>
+            </>
+          )}
           <Pagination_page
             itemsPerPage={6}
             items={products.totalPage}

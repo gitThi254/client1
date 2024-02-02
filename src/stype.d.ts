@@ -21,3 +21,20 @@ type Order = {
   order_status: string;
   order_total: number;
 };
+
+type Address = {
+  hoTen: string;
+  phone: string;
+  thanhPho: string;
+  huyen: string;
+  xa: string;
+  diaChiCuThe: string;
+};
+
+type SignUp = {
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+  phone: string;
+};

@@ -7,6 +7,11 @@ export const addCartReq = async (data: any) =>
 export const updateCartReq = async ({ id, data }: { id: string; data: any }) =>
   axios.put(`/carts/${id}`, data).then((res) => res.data);
 
+export const deleteCartReq = async (id?: string) =>
+  axios
+    .delete(`/carts/${id}`)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
 export const getCartItemReq = async () =>
   axios.get(`/carts/items`).then((res) => res.data);
 

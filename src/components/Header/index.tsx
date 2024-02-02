@@ -14,7 +14,7 @@ export default function Header() {
   const { data: cart } = useCartItems();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
-    <div className="bg-white z-99999 w-full">
+    <div className="bg-white z-99 w-full sticky top-0 left-0">
       <nav className="flex items-center justify-between p-6 lg:px-8">
         <div className="flex lg:flex-1">
           <Link to="/" className="-m-1.5 p-1.5">
@@ -71,13 +71,13 @@ export default function Header() {
                         className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
                       >
                         <div className="flex-auto">
-                          <a
-                            href={item.href}
+                          <Link
+                            to={`/products?category=${item._id}`}
                             className="block font-semibold text-gray-900"
                           >
                             {item.category_name}
                             <span className="absolute inset-0" />
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     ))}

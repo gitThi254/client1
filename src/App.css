@@ -3,6 +3,11 @@ table {
   border-collapse: collapse;
 }
 
+.slick-prev,
+.slick-next {
+  background-color: #1da1f2;
+}
+
 progress,
 sub,
 sup {
@@ -7198,15 +7203,6 @@ samp {
 
 img {
   max-width: 100%;
-}
-
-a {
-  --tw-text-opacity: 1;
-}
-
-a:hover {
-  --tw-text-opacity: 1;
-  color: rgba(255, 255, 255, var(--tw-text-opacity));
 }
 
 button,

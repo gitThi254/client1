@@ -6,13 +6,20 @@ import CoverOne from "../../images/cover/cover-01.png";
 import userSix from "../../images/user/user-06.png";
 import HistoryOrder from "../HistoryOrder";
 import User from "../User";
+import Address from "../Address/index";
+import Meta from "../../components/Meta/Meta";
 
 const Profile = () => {
-  const location = useLocation().pathname;
-  const { data: user, isPending } = useVerify();
-  if (isPending) return <Loader />;
+  const location = useLocation().pathname.split("/")[2];
+  const user = useVerify();
+  if (user?.isPending) return <Loader />;
   return (
     <>
+      <Meta
+        title={
+          location === "address" ? "Địa chỉ" : "order" ? "Đơn mua" : "Hồ sơ"
+        }
+      />
       {user && (
         <>
           <Breadcrumb pageName="Profile" />
@@ -108,9 +115,11 @@ const Profile = () => {
                     </div>
                     <div className="mt-4">
                       <h3 className="mb-1.5 text-2xl font-semibold text-black dark:text-white">
-                        {user?.lastname} {user?.firstname}
+                        {user?.data?.lastname} {user?.data?.firstname}
                       </h3>
-                      <p className="font-medium uppercase">{user?.role}</p>
+                      <p className="font-medium uppercase">
+                        {user?.data?.role}
+                      </p>
 
                       <div className="mt-6.5">
                         <h4 className="mb-3.5 font-medium text-black dark:text-white">
@@ -267,6 +276,8 @@ const Profile = () => {
                     </div>
                   </div>
                 </div>
+              ) : location === "/profile/address" ? (
+                <Address />
               ) : (
                 <HistoryOrder />
               )}

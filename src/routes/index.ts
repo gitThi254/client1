@@ -26,6 +26,11 @@ const coreRoutes = [
     component: Profile,
   },
   {
+    path: "/profile/address",
+    title: "Product Detail",
+    component: Profile,
+  },
+  {
     path: "/contact",
     title: "Contact",
     component: Contact,

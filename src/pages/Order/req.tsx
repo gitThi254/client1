@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useCreateOrder } from "../../hooks/order.hook";
 import Model from "../../components/Model";
+import ModelAddress from "../Address/ModelAddress";
 
 const Order = ({
   cart,
@@ -18,6 +19,7 @@ const Order = ({
       setAddress(user.address.default);
     }
   }, [address]);
+  const [open, setOpen] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const { register, handleSubmit, getValues } = useForm<Order>({
     defaultValues: {
@@ -38,10 +40,13 @@ const Order = ({
     }
   };
   return (
-    <div className="container flex lg:flex-row flex-col mt-10 min-h-screen border-2">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex-1 p-20">
-          <div className="text">Contact information</div>
+    <>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="container flex lg:flex-row flex-col mt-10 min-h-screen border"
+      >
+        <div className="flex-1 flex flex-col gap-4 p-20">
+          <div className="text">Thông tin liên hệ</div>
           <div className="w-full flex flex-col">
             <label>Email address</label>
             <input
@@ -51,121 +56,55 @@ const Order = ({
               disabled={true}
             />
           </div>
-          <div>
-            <h2>Shipping information</h2>
-            <div className="flex flex-col gap-4">
-              <div className="flex gap-10">
-                <div className="flex-1 flex flex-col">
-                  <label>First name</label>
-                  <input
-                    type="text"
-                    className="p-2 border-2"
-                    value={user.firstname}
-                    disabled={true}
-                  />
-                </div>
-                <div className="flex-1 flex flex-col">
-                  <label>Last name</label>
-                  <input
-                    type="text"
-                    className="p-2 border-2"
-                    value={user.lastname}
-                    disabled={true}
-                  />
-                </div>
-              </div>
-
-              <div className="flex flex-col">
-                <label>Address</label>
-                <input
-                  type="text"
-                  className="p-2 border-2"
-                  value={address?.address_line}
-                />
-              </div>
-              <div className="flex flex-col">
-                <label>Apartment, suite, etc.</label>
-                <input
-                  type="text"
-                  className="p-2 border-2"
-                  value={address?.unit_number}
-                />
-              </div>
-              <div className="flex gap-10">
-                <div className="flex-1 flex flex-col">
-                  <label>region</label>
-                  <input
-                    type="text"
-                    className="p-2 border-2"
-                    value={address?.region}
-                  />
-                </div>
-                <div className="flex-1 flex flex-col">
-                  <label>postal code</label>
-                  <input
-                    type="text"
-                    className="p-2 border-2"
-                    value={address?.postal_code}
-                  />
-                </div>
-              </div>
-              <div className="flex gap-10">
-                <div className="flex-1 flex flex-col">
-                  <label>unit number</label>
-                  <input
-                    type="text"
-                    className="p-2 border-2"
-                    value={address?.unit_number}
-                  />
-                </div>
-                <div className="flex-1 flex flex-col">
-                  <label>street number</label>
-                  <input
-                    type="text"
-                    className="p-2 border-2"
-                    value={address?.street_number}
-                  />
-                </div>
-              </div>
-              <div className="flex flex-col">
-                <label>City</label>
-                <input
-                  type="text"
-                  className="p-2 border-2"
-                  value={address?.city}
-                />
-              </div>
-              <div className="flex flex-col">
-                <label>Phone</label>
-                <input
-                  type="text"
-                  className="p-2 border-2"
-                  value={user?.phone}
-                />
-              </div>
-              <hr />
-              <div>
-                <div className="flex flex-col gap-2">
-                  <div>Payment</div>
-                  <div className="flex gap-10">
-                    {shipping.map((item: any) => (
-                      <div className="space-x-2" key={item._id}>
-                        <label htmlFor={item._id}>
-                          {item?.name}
-
-                          <input
-                            type="radio"
-                            id={item._id}
-                            {...register("payment_method_id")}
-                            value={item._id}
-                          />
-                        </label>
-                      </div>
-                    ))}
-                    <div className="text-danger">{error}</div>
+          <div className="flex flex-col gap-5">
+            <h2>Select Address</h2>
+            <button
+              className="bg-warning/90 hover:bg-warning text-dark px-4 py-2 text-boxdark-2 rounded-md font-bold self-start"
+              onClick={() => setOpen(true)}
+            >
+              Thêm Địa chỉ
+            </button>
+            <div className="flex flex-col gap-5">
+              {user?.address?.address_list?.map((item: any) => (
+                <label
+                  htmlFor={item._id}
+                  className="flex justify-between border-b"
+                  key={item._id}
+                >
+                  <div>
+                    <h1>Số Điện Thoại : {item.phone}</h1>
+                    <h1>
+                      Địa chỉ : {item.xa} - {item.huyen} - {item.thanhPho}
+                    </h1>
+                    <h1>Địa chỉ cụ thể : {item.diaChiCuThe}</h1>
                   </div>
+                  <div>
+                    <input
+                      type="radio"
+                      {...register("shipping_address")}
+                      id={item._id}
+                      value={item._id}
+                    />
+                  </div>
+                </label>
+              ))}
+            </div>
+          </div>
+          <div>
+            <h2>Select method payment</h2>
+            <div className="flex gap-10 p-4 justify-between flex-wrap">
+              {shipping.map((item: any) => (
+                <div key={item._id}>
+                  <label htmlFor={item._id}>{item.name}</label>
+                  <input
+                    type="radio"
+                    {...register("payment_method_id")}
+                    id={item._id}
+                    value={item._id}
+                  />
                 </div>
-              </div>
+              ))}
+              <div className="text-danger">{error}</div>
             </div>
           </div>
         </div>
@@ -242,7 +181,14 @@ const Order = ({
           </div>
         </div>
       </form>
-    </div>
+      <ModelAddress
+        title="Tạo Địa Chỉ"
+        description="Bạn vui long nhập vào form này"
+        button="Tạo địa chỉ"
+        open={open}
+        setOpen={setOpen}
+      />
+    </>
   );
 };
 

@@ -1,33 +1,51 @@
-// import { useBlogs } from "../hooks/blog.hook";
-// import "react-multi-carousel/lib/styles.css";
-// import { Link } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
 
-const CarouselHome = () => {
-  // const { data: blogs, isPending } = useBlogs();
-  // const breakPoints = [
-  //   { width: 500, itemsToShow: 1 },
-  //   { width: 768, itemsToShow: 2 },
-  //   { width: 1200, itemsToShow: 3 },
-  //   { width: 1500, itemsToShow: 4 },
-  // ];
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "./styles.css";
+// import required modules
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { useBlogs } from "../hooks/blog.hook";
+import { Link } from "react-router-dom";
+
+export default function Carousel() {
+  const { data: blogs } = useBlogs();
   return (
     <>
-      Carousel
-      {/* <div>
-        <Carousel breakPoints={breakPoints}>
-          {blogs?.map((item: any) => (
+      <Swiper
+        spaceBetween={30}
+        slidesPerView={3}
+        centeredSlides={true}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        loop={true}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={true}
+        modules={[Autoplay, Pagination, Navigation]}
+        className="w-full h-[400px] max-w-screen-xl mx-auto"
+      >
+        {blogs?.map((item: any) => (
+          <SwiperSlide key={item._id}>
             <Link
               to={`/blog/${item._id}`}
-              key={item._id}
-              className="w-full h-[200px] bg-black text-white font-[30px] mx-[20px] flex items-end justify-center"
+              className="w-full  h-full flex flex-col justify-between outline-1 cursor-pointer"
             >
-              <img src={item.images[0].url} />
+              <div className="">
+                <img src={item.images[0].url} alt={item.title} />
+              </div>
+              <div className="h-full flex items-start text-2xl  mb-8 hover:underline line-clamp-2 px-2 py-4">
+                {item.title}
+              </div>
             </Link>
-          ))}
-        </Carousel>
-      </div> */}
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </>
   );
-};
-
-export default CarouselHome;
+}

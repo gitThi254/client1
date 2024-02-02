@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 import { useBlogs } from "../../hooks/blog.hook";
+import Meta from "../../components/Meta/Meta";
 
 const Blog = () => {
   const { data: blogs, isPending, error } = useBlogs();
   if (isPending) return <p>Loading...</p>;
   if (error) return <p>{error.message}</p>;
   return (
-    <div>
+    <>
+      <Meta title={"Bài viết"} />
       <div>
         <h1>Blog list</h1>
       </div>
@@ -87,7 +89,7 @@ const Blog = () => {
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 };
 
