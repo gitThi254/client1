@@ -1,4 +1,3 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import ModelAddress from "./ModelAddress";
 import { useDeleteAddress } from "../../hooks/auth.hook";

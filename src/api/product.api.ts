@@ -17,6 +17,5 @@ export const getProductDetailsReq = (id?: string) =>
   axios.get(`/products/item/details/${id}`).then((res) => res.data);
 export const topFiveSalesReq = () =>
   axios.get(`/products/topFiveProductBestSell`).then((res) => {
-    console.log(res);
     return res.data;
   });
