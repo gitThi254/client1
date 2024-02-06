@@ -30,7 +30,7 @@ export default function Carousel() {
         modules={[Autoplay, Pagination, Navigation]}
         className="w-full h-[400px] max-w-screen-xl mx-auto"
       >
-        {blogs?.map((item: any) => (
+        {blogs?.blogs?.map((item: any) => (
           <SwiperSlide key={item._id}>
             <Link
               to={`/blog/${item._id}`}

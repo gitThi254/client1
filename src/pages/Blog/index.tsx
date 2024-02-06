@@ -12,7 +12,7 @@ const Blog = () => {
       <section className="text-gray-600 body-font w-full contanier mx-auto">
         <div className="container px-5 py-4 mx-auto">
           <div className="flex flex-wrap -m-4">
-            {blogs?.map((item: any) => (
+            {blogs?.blogs?.map((item: any) => (
               <div className="p-4 md:w-1/3" key={item._id}>
                 <div className="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
                   <img
