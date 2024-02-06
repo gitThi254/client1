@@ -13,7 +13,7 @@ const HistoryOrder = () => {
   if (isPending || pending) return <Loader_image />;
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-      {orders.length === 0 ? (
+      {orders.getAllOrders.length !== 0 ? (
         <>
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -21,7 +21,7 @@ const HistoryOrder = () => {
                 <th scope="col" className="px-6 py-3">
                   images
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className=" overflow-hidden px-6 py-3">
                   Product name
                 </th>
                 <th scope="col" className="px-6 py-3">
@@ -49,7 +49,7 @@ const HistoryOrder = () => {
             </thead>
             <tbody>
               {orders?.getAllOrders?.map((item: any) => (
-                <DataOrder key={item._id} item={item} />
+                <DataOrder key={item.id} item={item} />
               ))}
             </tbody>
           </table>

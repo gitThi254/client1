@@ -44,6 +44,7 @@ export const useAddCart = () => {
     mutationFn: addCartReq,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["carts-items"] });
+      queryClient.invalidateQueries({ queryKey: ["users", "notification"] });
 
       toast.success("Add to cart successfully");
     },

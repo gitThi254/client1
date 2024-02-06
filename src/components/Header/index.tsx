@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import DropdownUser from "./DropdownUser";
 import { useCategories } from "../../hooks/category.hook";
 import { useCartItems } from "../../hooks/cart.hook";
+import DropdownNotification from "../DropdownNotification";
 
 const callsToAction: any = [];
 
@@ -13,6 +14,7 @@ export default function Header() {
   const { data: categories } = useCategories();
   const { data: cart } = useCartItems();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
   return (
     <div className="bg-white z-99 w-full sticky top-0 left-0">
       <nav className="flex items-center justify-between p-6 lg:px-8">
@@ -146,35 +148,15 @@ export default function Header() {
                 {cart?.length ?? 0}
               </div>
             </Link>
-            <button
-              type="button"
-              className="relative inline-flex items-center p-3 rounded-full text-sm font-medium text-center text-gray-800 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 border-2"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"
-                />
-              </svg>
-
-              <span className="sr-only">Notifications</span>
-              <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-danger border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
-                20
-              </div>
-            </button>
+            <DropdownNotification />
           </div>
           <DropdownUser />
         </div>
       </nav>
-      <div className={`sm:hidden ${isOpen ? "hidden" : ""}`} id="mobile-menu">
+      <div
+        className={`sm:${!isOpen ? "hidden" : ""} lg:hidden`}
+        id="mobile-menu"
+      >
         <div className="space-y-1 px-2 pb-3 pt-2">
           <Link
             to="/"
@@ -189,18 +171,18 @@ export default function Header() {
           >
             sản phẩm
           </Link>
-          <a
-            href="#"
+          <Link
+            to="#"
             className="text-black hover:bg-black hover:text-white block rounded-md px-3 py-2 text-base font-medium"
           >
             Loại
-          </a>
-          <a
-            href="/about"
+          </Link>
+          <Link
+            to="/about"
             className="text-black hover:bg-black hover:text-white block rounded-md px-3 py-2 text-base font-medium"
           >
             Về chúng tôi
-          </a>
+          </Link>
           <Link
             to="/blog"
             className="text-black hover:bg-black hover:text-white block rounded-md px-3 py-2 text-base font-medium"

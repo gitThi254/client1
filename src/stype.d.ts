@@ -7,6 +7,7 @@ type AddtoCart = {
   cart_id: string;
   product_item_id: string;
   qty: number;
+  product_name: string;
 };
 
 type CartOrder = {
@@ -37,4 +38,15 @@ type SignUp = {
   email: string;
   password: string;
   phone: string;
+};
+
+type Reivews = {
+  comment: string;
+  rating_value: number;
+};
+
+type ResetPassword = {
+  old_password: string;
+  new_password: string;
+  confirm_password: string;
 };

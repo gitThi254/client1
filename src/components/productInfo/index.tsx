@@ -17,6 +17,7 @@ const ProductInfo = ({ data, cart }: { data: any; cart: any }) => {
       cart_id: cart?._id,
       product_item_id: "",
       qty: undefined,
+      product_name: data ? data.name : "",
     },
     resolver: yupResolver(addToCartSchema),
   });

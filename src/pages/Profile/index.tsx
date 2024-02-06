@@ -8,16 +8,23 @@ import HistoryOrder from "../HistoryOrder";
 import User from "../User";
 import Address from "../Address/index";
 import Meta from "../../components/Meta/Meta";
+import ResetPassword from "../../components/ResetPassword";
 
 const Profile = () => {
-  const location = useLocation().pathname.split("/")[2];
+  const location = useLocation().pathname;
+  const locationPathname = useLocation().pathname.split("/")[2];
+
   const user = useVerify();
   if (user?.isPending) return <Loader />;
   return (
     <>
       <Meta
         title={
-          location === "address" ? "Địa chỉ" : "order" ? "Đơn mua" : "Hồ sơ"
+          locationPathname === "address"
+            ? "Địa chỉ"
+            : "order"
+            ? "Đơn mua"
+            : "Hồ sơ"
         }
       />
       {user && (
@@ -278,6 +285,8 @@ const Profile = () => {
                 </div>
               ) : location === "/profile/address" ? (
                 <Address />
+              ) : location === "/profile/reset-password" ? (
+                <ResetPassword />
               ) : (
                 <HistoryOrder />
               )}

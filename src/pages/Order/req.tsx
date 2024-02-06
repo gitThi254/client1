@@ -3,25 +3,26 @@ import { useForm } from "react-hook-form";
 import { useCreateOrder } from "../../hooks/order.hook";
 import Model from "../../components/Model";
 import ModelAddress from "../Address/ModelAddress";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { OrderSchema } from "../../schemas/formSchema";
 
 const Order = ({
   cart,
   user,
   shipping,
+  address,
 }: {
   cart: any;
   user: any;
   shipping: any;
+  address: any;
 }) => {
-  const [address, setAddress] = useState<any>();
-  useEffect(() => {
-    if (user.address.default) {
-      setAddress(user.address.default);
-    }
-  }, [address]);
   const [open, setOpen] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
-  const { register, handleSubmit, getValues } = useForm<Order>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Order>({
     defaultValues: {
       payment_method_id: "",
       shipping_address: user?.address?.default?._id ?? "",
@@ -29,15 +30,12 @@ const Order = ({
       order_status: "65a5ec3f4a4a86cae890b658",
       order_total: cart?.total ?? 0,
     },
+    resolver: yupResolver(OrderSchema),
   });
   const { mutate: createOrderMutation, isPending } = useCreateOrder();
   const onSubmit = (data: any) => {
-    if (getValues("payment_method_id")) {
-      const carts_id = cart?.cart?.map((item: any) => item._id);
-      createOrderMutation({ ...data, cart: carts_id });
-    } else {
-      setError("Bạn chưa chọn cách thanh toán");
-    }
+    const carts_id = cart?.cart?.map((item: any) => item._id);
+    createOrderMutation({ ...data, cart: carts_id });
   };
   return (
     <>
@@ -65,7 +63,7 @@ const Order = ({
               Thêm Địa chỉ
             </button>
             <div className="flex flex-col gap-5">
-              {user?.address?.address_list?.map((item: any) => (
+              {address?.map((item: any) => (
                 <label
                   htmlFor={item._id}
                   className="flex justify-between border-b"
@@ -89,7 +87,12 @@ const Order = ({
                 </label>
               ))}
             </div>
+            <div className="text-danger">
+              {errors?.shipping_address?.message}
+            </div>
           </div>
+        </div>
+        <div className="flex-1 flex flex-col p-20">
           <div>
             <h2>Select method payment</h2>
             <div className="flex gap-10 p-4 justify-between flex-wrap">
@@ -104,11 +107,11 @@ const Order = ({
                   />
                 </div>
               ))}
-              <div className="text-danger">{error}</div>
+            </div>
+            <div className="text-danger">
+              {errors?.payment_method_id?.message}
             </div>
           </div>
-        </div>
-        <div className="flex-1 flex flex-col p-20">
           <div className="text">Order summary</div>
           <hr />
           {cart?.cart?.map((item: any) => (

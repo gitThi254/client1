@@ -5,9 +5,16 @@ export const loginReq = (data: SignIn) =>
 
 export const registerReq = (data: SignIn) =>
   axios.post("users/register", data).then((res) => res.data);
+export const resetPasswordReq = (data: ResetPassword) =>
+  axios.post("users/reset-password", data).then((res) => res.data);
 
 export const verifyReq = async () =>
   axios.get("/users/verify").then((res) => {
+    return res.data;
+  });
+
+export const nofiticationReq = async () =>
+  axios.get("/users/nofitications").then((res) => {
     return res.data;
   });
 

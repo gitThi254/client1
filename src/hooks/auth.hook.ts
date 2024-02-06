@@ -7,7 +7,9 @@ import {
   getAddressReq,
   loginReq,
   logoutReq,
+  nofiticationReq,
   registerReq,
+  resetPasswordReq,
   updateAddressReq,
   verifyReq,
 } from "../api/auth.api";
@@ -43,7 +45,25 @@ export const useRegister = () => {
     },
   });
 };
-
+export const useResetPassword = () => {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: resetPasswordReq,
+    onSuccess: () => {
+      logoutReq();
+      localStorage.removeItem("auth");
+      queryClient.removeQueries({ queryKey: ["auth"], exact: true });
+      queryClient.invalidateQueries({ queryKey: ["auth"] });
+      navigate("/signin");
+      toast.success("Bạn đã thay đổi mật khẩu thành công");
+    },
+    onError(error: any) {
+      error.message = error?.response?.data;
+      toast.error("Bạn đã thay đổi mật khẩu không thành công");
+    },
+  });
+};
 export const useVerify = () => {
   const queryClient = useQueryClient();
   const authDefault = JSON.parse(localStorage.getItem("auth") ?? "{}") ?? null;
@@ -69,6 +89,13 @@ export const useVerify = () => {
   return user;
 };
 
+export const useNotification = () => {
+  return useQuery({
+    queryKey: ["users", "notification"],
+    queryFn: nofiticationReq,
+  });
+};
+
 export const useLogout = () => {
   const navigate = useNavigate();
   const queryclient = useQueryClient();
@@ -78,7 +105,6 @@ export const useLogout = () => {
       localStorage.removeItem("auth");
       queryclient.removeQueries({ queryKey: ["auth"], exact: true });
       queryclient.invalidateQueries({ queryKey: ["auth"] });
-      console.log("hello");
       navigate("/signin");
     },
     onError: (error) => {

@@ -65,6 +65,16 @@ const coreRoutes = [
     title: "HistoryOrder",
     component: Profile,
   },
+  {
+    path: "/order/history/:id",
+    title: "HistoryOrder",
+    component: Profile,
+  },
+  {
+    path: "/profile/reset-password",
+    title: "HistoryOrder",
+    component: Profile,
+  },
 ];
 
 const routes = [...coreRoutes];

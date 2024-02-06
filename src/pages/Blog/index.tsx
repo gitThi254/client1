@@ -9,10 +9,7 @@ const Blog = () => {
   return (
     <>
       <Meta title={"Bài viết"} />
-      <div>
-        <h1>Blog list</h1>
-      </div>
-      <section className="text-gray-600 body-font">
+      <section className="text-gray-600 body-font w-full contanier mx-auto">
         <div className="container px-5 py-4 mx-auto">
           <div className="flex flex-wrap -m-4">
             {blogs?.map((item: any) => (

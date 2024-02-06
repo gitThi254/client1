@@ -7,13 +7,18 @@ import SelectPrice from "./SelectPrice";
 import { useCategories } from "../hooks/category.hook";
 import Pagination_page from "./Pagination_page";
 import { useCartItems } from "../hooks/cart.hook";
+import { Rate } from "antd";
 const DataGrid = () => {
   const [search, setSearch] = useSearchParams();
   const [open, setOpen] = useState<boolean>(false);
   const { data: products, isPending } = useProducts(search);
   const { data: categories, isPending: pending } = useCategories();
   const { data: cart, isPending: pendingCart } = useCartItems();
-  console.log(products);
+  const rating = (rate: number) => {
+    const x = (rate % 1).toFixed(2);
+    const rating = x >= 0.25 && x < 0.75 ? 0.5 : x < 0.25 ? 0 : 1;
+    return Number(parseInt(rate) + rating);
+  };
   if (isPending || pending || pendingCart) return <Loader />;
   return (
     <div className="container mx-auto my-5">
@@ -134,7 +139,7 @@ const DataGrid = () => {
                   <div className="card overflow-hidden w-full relative">
                     <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md lg:aspect-none group-hover:opacity-80 lg:h-80">
                       <img
-                        src={item?.image[0]?.url}
+                        src={item?.image[0]?.url ?? ""}
                         alt={item?.name}
                         className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                       />
@@ -153,21 +158,16 @@ const DataGrid = () => {
                       </p>
                       <div className="flex justify-between">
                         <div className="flex mb-2">
-                          <span className="material-icons text-warning-500">
-                            grade
-                          </span>
-                          <span className="material-icons text-warning-500">
-                            grade
-                          </span>
-                          <span className="material-icons text-warning-500">
-                            grade
-                          </span>
-                          <span className="material-icons text-warning-500">
-                            grade
-                          </span>
-                          <span className="material-icons text-gray-300">
-                            grade
-                          </span>
+                          {item?.avgReviews ? (
+                            <Rate
+                              allowHalf
+                              className="w-full text-primary border border-graydark p-2"
+                              value={rating(item?.avgReviews)}
+                              disabled
+                            />
+                          ) : (
+                            <div>Chưa có đánh giá nào</div>
+                          )}
                         </div>
                         <p className="font-bold text-base mb-5">
                           ${item?.min} - ${item?.max}

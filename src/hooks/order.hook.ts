@@ -1,4 +1,9 @@
-import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
+import {
+  keepPreviousData,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import {
   createOrdersReq,
   getAllOrderReq,
@@ -8,10 +13,13 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 export const useCreateOrder = () => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   return useMutation({
     mutationFn: createOrdersReq,
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["users", "notification"] });
+
       navigate("/order/history");
       toast.success("create order successfully");
     },
