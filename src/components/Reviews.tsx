@@ -1,7 +1,7 @@
 import { Rate } from "antd";
 const Reviews = ({ data }: { data: any }) => {
-  const rating = (rate: number) => {
-    const x = (rate % 1).toFixed(2);
+  const rating = (rate: any) => {
+    const x: any = (rate % 1).toFixed(2);
     const rating = x >= 0.25 && x < 0.75 ? 0.5 : x < 0.25 ? 0 : 1;
     console.log(rating);
     return Number(parseInt(rate) + rating);
