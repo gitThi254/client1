@@ -7,11 +7,11 @@ import "swiper/css/navigation";
 import "./styles.css";
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import { useBlogs } from "../hooks/blog.hook";
+import { useBlogsCarousel } from "../hooks/blog.hook";
 import { Link } from "react-router-dom";
 
 export default function Carousel() {
-  const { data: blogs } = useBlogs();
+  const { data: blogs } = useBlogsCarousel();
   return (
     <>
       <Swiper
@@ -30,7 +30,7 @@ export default function Carousel() {
         modules={[Autoplay, Pagination, Navigation]}
         className="w-full h-[400px] max-w-screen-xl mx-auto"
       >
-        {blogs?.blogs?.map((item: any) => (
+        {blogs?.data?.map((item: any) => (
           <SwiperSlide key={item._id}>
             <Link
               to={`/blog/${item._id}`}

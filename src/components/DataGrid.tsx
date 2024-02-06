@@ -32,7 +32,6 @@ const DataGrid = () => {
               {" "}
               menu
             </div>
-            <div></div>
             <Search url="products" />
           </div>
         </div>

@@ -1,10 +1,32 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { blogReq, blogsReq, dislikesReq, likesReq } from "../api/blog.api";
 
-export const useBlogs = () => {
-  return useQuery({
-    queryKey: ["blogs"],
+export const useBlogs = (page: number = 1) => {
+  return useInfiniteQuery({
+    queryKey: ["blogs", page],
     queryFn: blogsReq,
+    initialPageParam: 1,
+    getNextPageParam: (lastpage: any, pages: any) => {
+      const current = pages.length;
+      const totalPage = lastpage.totalPage;
+      if (current * 3 < totalPage) {
+        return current + 1;
+      } else {
+        return undefined;
+      }
+    },
+  });
+};
+
+export const useBlogsCarousel = () => {
+  return useQuery({
+    queryKey: ["blogs", "carousel"],
+    queryFn: () => blogsReq({ pageParam: 0 }),
   });
 };
 

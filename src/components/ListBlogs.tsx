@@ -9,7 +9,7 @@ const ListBlogs = () => {
   if (error) return <p>{error.message}</p>;
   return (
     <div className="grid grid-cols-3 gap-10">
-      {blogs?.map((item: any) => (
+      {blogs?.pages[0].map((item: any) => (
         <div key={item._id} className="">
           <div>{item.title}</div>
           <div>{item.discription}</div>

@@ -1,5 +1,9 @@
 import axios from "./axios";
-export const blogsReq = async () => axios.get("/blogs").then((res) => res.data);
+export const blogsReq = async ({ pageParam }: { pageParam?: number }) => {
+  return axios
+    .get(`/blogs?${pageParam !== 0 ? `limit=3&page=${pageParam}` : 0}`)
+    .then((res) => res.data);
+};
 export const blogReq = async (id?: string) =>
   axios.get(`/blogs/${id}`).then((res) => res.data);
 
