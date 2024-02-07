@@ -20,8 +20,8 @@ const Blog = () => {
         <div className="container px-5 py-4 mx-auto">
           <div className="flex flex-wrap flex-col -m-4 gap-4 mb-4">
             {blogs &&
-              blogs.pages.map((page: any) =>
-                page.data.map((blog: any) => (
+              blogs?.pages?.map((page: any) =>
+                page?.data?.map((blog: any) => (
                   <div
                     className="-my-8 divide-y-2 divide-gray-100 p-4"
                     key={blog._id}
