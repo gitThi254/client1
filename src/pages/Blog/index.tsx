@@ -13,7 +13,7 @@ const Blog = () => {
   } = useBlogs();
   if (isPending) return <Loader_image />;
   if (error) return <p>{error.message}</p>;
-  alert(blogs && JSON.stringify(blogs));
+  alert(blogs && JSON.stringify(blogs.pages[0].data[0]._id));
   return (
     <>
       <Meta title={"Bài viết"} />
